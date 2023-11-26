@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import axios from 'axios';
+import { redirect } from 'react-router-dom';
 function LoginPage() {
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
@@ -9,6 +11,20 @@ function LoginPage() {
             alert('Please provide your email and password');
             return;
         }
+
+        axios.post ('http://localhost:5005/login', {email, password})
+        .then(response => {
+            console.log(response.data);
+            window.location = '/profile';
+        })
+        .catch(error => {
+            if(error.response) {
+                console.log(error.response.data);
+                alert(error.response.data.errorMessage)
+            } else {
+                console.log('Error', error.message)
+            }
+        });
     }
 
     return (

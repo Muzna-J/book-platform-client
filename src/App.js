@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import Navbar from './components/Navbar';
 import BookDetailsPage from './pages/BookDetailsPage';
+import ReadingList from './components/ReadingList';
 
 
 function App() {
@@ -18,8 +19,9 @@ function App() {
     <Route path='/home' element={<HomePage />} />
     <Route path='/profile' element={<ProfilePage />} />
     <Route path='/book/:volumeId' element={<BookDetailsPage />} />
+    <Route path='/reading-list' element={<ReadingList />} />
     </Routes>
-    </Router>
+    </Router> 
     
   );
 }

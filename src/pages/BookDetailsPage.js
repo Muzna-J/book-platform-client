@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-function BookDetailsPage() {
+
+function BookDetailsPage({ addBook }) {
     const [bookDetails, setBookDetails] = useState(null);
     const { volumeId } = useParams();
 
@@ -21,6 +22,14 @@ function BookDetailsPage() {
         fetchBookDetails();
     }, [volumeId]);
 
+    const handleAddBook = () => {
+        if(bookDetails) {
+            addBook({
+                bookId: bookDetails._id,
+                title: bookDetails.volumeInfo.title,
+                thumbnail: bookDetails.volumeInfo.imageLinks?.thumbnail
+            })
+        }
     if(!bookDetails) {
         return <div>Loading....</div>
     }
@@ -43,6 +52,7 @@ function BookDetailsPage() {
             )}
             {pageCount && <p><strong>Page Count:</strong> {pageCount}</p>}
             {language && <p><strong>Language:</strong> {language.toUpperCase()}</p>}
+            <button onClick={handleAddBook}>Add to Reading List</button>
         </div>
     );  
 }; 
