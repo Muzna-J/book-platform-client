@@ -3,8 +3,6 @@ import {  useContext, useEffect } from 'react';
 import { ReadingListContext } from '../context/ReadingListContext';
 
 const ReadingList = () =>  {
-    
-
     const { readingList } = useContext(ReadingListContext);
 
     useEffect(() => {
@@ -21,7 +19,7 @@ const ReadingList = () =>  {
 
             <ul>
                 {readingList.map((book) => (
-                    <li key={book.volumeId}>
+                    <li key={book._id}>
                     <img src={book.thumbnail} alt={`Cover of ${book.title}`} />
                         <p>{book.title}</p>
                     </li>
