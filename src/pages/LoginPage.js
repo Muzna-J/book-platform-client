@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 function LoginPage() {
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -12,10 +13,10 @@ function LoginPage() {
             return;
         }
 
-        axios.post ('http://localhost:5005/login', {email, password})
+        axios.post ('http://localhost:5005/login', {email, password}, { withCredentials: true })
         .then(response => {
             console.log(response.data);
-            window.location = '/profile';
+            navigate('/profile') ;
         })
         .catch(error => {
             if(error.response) {

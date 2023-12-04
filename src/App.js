@@ -7,10 +7,12 @@ import ProfilePage from './pages/ProfilePage';
 import Navbar from './components/Navbar';
 import BookDetailsPage from './pages/BookDetailsPage';
 import ReadingList from './components/ReadingList';
-
+import {ReadingListProvider} from './context/ReadingListContext';
+import Logout from './components/Logout';
 
 function App() {
   return (
+    <ReadingListProvider>
     <Router>
     <Navbar />
     <Routes>   
@@ -20,8 +22,10 @@ function App() {
     <Route path='/profile' element={<ProfilePage />} />
     <Route path='/book/:volumeId' element={<BookDetailsPage />} />
     <Route path='/reading-list' element={<ReadingList />} />
+    <Route path='/logout' element={<Logout />} />
     </Routes>
-    </Router> 
+    </Router>
+    </ReadingListProvider> 
     
   );
 }

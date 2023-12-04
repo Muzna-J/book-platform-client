@@ -2,17 +2,18 @@ import { useState } from "react";
 import axios from 'axios';
 
 function SignupPage() {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(!email || !password) {
+        if(!name || !email || !password) {
             alert('please fill in the fields');
             return;
         }
         try {
-            const response = await axios.post('http://localhost:5005/signup', {email, password});
+            const response = await axios.post('http://localhost:5005/signup', {name, email, password});
             if(response.status===201) {
                 alert('Signup successful')
             } else {
@@ -31,6 +32,13 @@ function SignupPage() {
     return (
         <div className="SignupPage">
         <form onSubmit={handleSubmit}>
+            <label>Name</label>
+            <input
+            type="text"
+            name="name"
+            value={name}
+            onChange={(e)=> setName(e.target.value)}
+            /> 
             <label>Email</label>
             <input
             type="email"

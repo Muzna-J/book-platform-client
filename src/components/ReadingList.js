@@ -1,64 +1,29 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import {  useContext, useEffect } from 'react';
 
-function ReadingList () {
-    const [readingList, setReadingList] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+import { ReadingListContext } from '../context/ReadingListContext';
+
+const ReadingList = () =>  {
     
-    const fetchReadingList = async() => {
-        try {
-            const response = await axios.get('http://localhost:5005/reading-list');
-            setReadingList(response.data);
-        } catch (error) {
-            setError(error.message);
-        } finally {
-            setLoading(false);
-        }
-    };
 
-    const addBook = async (newBook) => {
-        try {
-            const response = await axios.post('http://localhost:5005/reading-list/add', newBook);
-            const addedBook = response.data;
-            setReadingList(prevList => [...prevList, addedBook]);
-        } catch(error) {
-            console.error('Error adding book', error)
-        }
-    };
+    const { readingList } = useContext(ReadingListContext);
 
     useEffect(() => {
-        fetchReadingList();
-    }, []);
-            
+        console.log('Reading List Updated:', readingList);
+      }, [readingList]);
 
-     if (loading) {
-        return <div>Loading reading list...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
-
-    if (readingList.length === 0) {
+    if (!readingList.length) {
         return <div>No books in your reading list yet.</div>;
     }
 
     return (
         <div>
             <h2>My Reading List</h2>
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                addBook({title: 'Durch Mag Moor', bookId: 'dzuaEAAAQBAJ'})
-            }}>
-                <input type='text' placeholder='book title' />
-                <button type='submit'>Add Book</button>
-            </form>
 
             <ul>
-                {readingList.map(book => (
-                    <li key={book._id}>
-                        {book.title}
+                {readingList.map((book) => (
+                    <li key={book.volumeId}>
+                    <img src={book.thumbnail} alt={`Cover of ${book.title}`} />
+                        <p>{book.title}</p>
                     </li>
                 ))}
             </ul>

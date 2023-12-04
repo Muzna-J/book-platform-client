@@ -1,8 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { ReadingListContext } from '../context/ReadingListContext';
+import axios from 'axios';
 
 
-function BookDetailsPage({ addBook }) {
+
+function BookDetailsPage() {
+    const { addToReadingList } = useContext(ReadingListContext);
     const [bookDetails, setBookDetails] = useState(null);
     const { volumeId } = useParams();
 
@@ -22,14 +26,30 @@ function BookDetailsPage({ addBook }) {
         fetchBookDetails();
     }, [volumeId]);
 
-    const handleAddBook = () => {
-        if(bookDetails) {
-            addBook({
-                bookId: bookDetails._id,
-                title: bookDetails.volumeInfo.title,
-                thumbnail: bookDetails.volumeInfo.imageLinks?.thumbnail
-            })
+    const handleAddToReadingList = async () => {
+        if (bookDetails) {
+            try {
+                const response = await axios.post('http://localhost:5005/reading-list/add', {
+                    volumeId: bookDetails.id,
+                    title: bookDetails.volumeInfo.title,
+                    thumbnail: bookDetails.volumeInfo.imageLinks?.thumbnail
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    withCredentials: true 
+                });
+                addToReadingList(response.data.book);
+                
+    
+                console.log(response.data.message);
+
+            } catch (error) {
+                console.error('Error:', error.response);
+            }
         }
+    };
+        
     if(!bookDetails) {
         return <div>Loading....</div>
     }
@@ -52,7 +72,7 @@ function BookDetailsPage({ addBook }) {
             )}
             {pageCount && <p><strong>Page Count:</strong> {pageCount}</p>}
             {language && <p><strong>Language:</strong> {language.toUpperCase()}</p>}
-            <button onClick={handleAddBook}>Add to Reading List</button>
+            <button onClick={handleAddToReadingList}>Add to Reading List</button>
         </div>
     );  
 }; 
