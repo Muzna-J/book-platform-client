@@ -3,10 +3,9 @@ import {  useContext, useEffect } from 'react';
 import { ReadingListContext } from '../context/ReadingListContext';
 
 const ReadingList = () =>  {
-    const { readingList, fetchReadingList } = useContext(ReadingListContext);
+    const { readingList } = useContext(ReadingListContext); 
 
     useEffect(() => {
-        fetchReadingList();
         console.log('Reading List Updated:', readingList);
       }, [readingList]);
 
