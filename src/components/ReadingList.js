@@ -3,13 +3,14 @@ import {  useContext, useEffect } from 'react';
 import { ReadingListContext } from '../context/ReadingListContext';
 
 const ReadingList = () =>  {
-    const { readingList } = useContext(ReadingListContext);
+    const { readingList, fetchReadingList } = useContext(ReadingListContext);
 
     useEffect(() => {
+        fetchReadingList();
         console.log('Reading List Updated:', readingList);
       }, [readingList]);
 
-    if (!readingList.length) {
+    if (!Array.isArray(readingList) || readingList.length === 0) {
         return <div>No books in your reading list yet.</div>;
     }
 

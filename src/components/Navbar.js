@@ -7,6 +7,7 @@ function Navbar() {
         <Link to='/login' className="nav-link">Login</Link>
         <Link to='/logout' className="nav-link">Logout</Link>
         <Link to='/home' className="nav-link">Home</Link>
+        <Link to ='/reading-list' className="nav-link">Reading List</Link>
 
         </div>
     )
