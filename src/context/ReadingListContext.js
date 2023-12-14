@@ -41,7 +41,7 @@ const ReadingListProvider = ({children}) => {
         fetchReadingList();
     }, []);
 
-    const contextValue = { readingList, addToReadingList, clearReadingList };
+    const contextValue = { readingList, addToReadingList, clearReadingList, fetchReadingList  };
 
     return (
         <ReadingListContext.Provider value={contextValue}>

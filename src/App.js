@@ -7,8 +7,9 @@ import ProfilePage from './pages/ProfilePage';
 import Navbar from './components/Navbar';
 import BookDetailsPage from './pages/BookDetailsPage';
 import ReadingList from './components/ReadingList';
-import {ReadingListProvider} from './context/ReadingListContext';
+import { ReadingListProvider } from './context/ReadingListContext';
 import Logout from './components/Logout';
+
 
 function App() {
   return (
