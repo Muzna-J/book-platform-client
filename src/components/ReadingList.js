@@ -3,8 +3,7 @@ import {  useContext, useEffect } from 'react';
 import { ReadingListContext } from '../context/ReadingListContext';
 
 const ReadingList = () =>  {
-    // const { readingList } = useContext(ReadingListContext); 
-    const { readingList, fetchReadingList } = useContext(ReadingListContext);
+    const { readingList, fetchReadingList, removeFromReadingList } = useContext(ReadingListContext);
 
     useEffect(() => {
         if (readingList.length === 0) {
@@ -24,6 +23,10 @@ const ReadingList = () =>  {
         return <div>No books in your reading list yet.</div>;
     }
 
+    const handleDelete = (book) => {
+        removeFromReadingList(book);
+    };
+
     return (
         <div>
             <h2>My Reading List</h2>
@@ -33,6 +36,7 @@ const ReadingList = () =>  {
                     <li key={book._id}>
                     <img src={book.thumbnail} alt={`Cover of ${book.title}`} />
                         <p>{book.title}</p>
+                        <button onClick={() => handleDelete(book)}>Remove</button>
                     </li>
                 ))}
             </ul>
