@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { ReadingListContext } from '../context/ReadingListContext';
 import axios from 'axios';
+import ReviewForm from '../components/ReviewForm';
 
 
 
@@ -72,6 +73,7 @@ function BookDetailsPage() {
             )}
             {pageCount && <p><strong>Page Count:</strong> {pageCount}</p>}
             {language && <p><strong>Language:</strong> {language.toUpperCase()}</p>}
+            <ReviewForm volumeId={bookDetails.id} />
             <button onClick={handleAddToReadingList}>Add to Reading List</button>
         </div>
     );  
