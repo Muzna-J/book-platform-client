@@ -25,6 +25,7 @@ const ReviewDisplay = ({volumeId}) => {
             {Array.isArray(reviews) && reviews.length > 0 ? (
                 reviews.map((review, index) => (
                     <div key={index}>
+                        <div>User: {review.user.name}</div>
                         <div>Rating: {review.rating} stars</div>
                         <div>Comment: {review.comment}</div>
                     </div>
