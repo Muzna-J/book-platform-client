@@ -12,7 +12,7 @@ const ReviewForm = ({ volumeId }) => {
             const response = await axios.post('http://localhost:5005/add-review', {rating, comment, volumeId}, {withCredentials:true});
             console.log('Review submitted', response.data);
         } catch (error) {
-            console.error('Error submitting review', error);
+            console.error('Error submitting review', error.response);
         }
         };
 

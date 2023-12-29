@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const ReviewDisplay = ({volumeId}) => {
     const [reviews, setReviews] = useState([]);
+    const [noReviewsMessage, setNoReviewsMessage] = useState('');
 
     useEffect(() => {
         const fetchReviews = async () => {
@@ -10,9 +11,10 @@ const ReviewDisplay = ({volumeId}) => {
                 const response = await axios.get(`http://localhost:5005/get-reviews/${volumeId}`, {withCredentials: true});
                 if (response.data.message) {
                     // Handle the case where there are no reviews
-                    console.log(response.data.message);
+                    setNoReviewsMessage(response.data.message);
                   } else {
                 setReviews(response.data)};
+                setNoReviewsMessage(''); // Reset message in case of actual reviews
             } catch (error) {
                 console.error('Error fetching reviews', error)
             }
@@ -22,7 +24,9 @@ const ReviewDisplay = ({volumeId}) => {
 
     return (
         <div>
-            {Array.isArray(reviews) && reviews.length > 0 ? (
+            {noReviewsMessage ? (
+                <p>{noReviewsMessage}</p>
+            ) : (
                 reviews.map((review, index) => (
                     <div key={index}>
                         <div>User: {review.user.name}</div>
@@ -30,13 +34,9 @@ const ReviewDisplay = ({volumeId}) => {
                         <div>Comment: {review.comment}</div>
                     </div>
                 ))
-            ) : (
-                <p>No reviews yet.</p>
             )}
         </div>
     );
-    
-    
 };
 
 export default ReviewDisplay;
