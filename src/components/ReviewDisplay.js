@@ -5,6 +5,15 @@ const ReviewDisplay = ({volumeId}) => {
     const [reviews, setReviews] = useState([]);
     const [noReviewsMessage, setNoReviewsMessage] = useState('');
 
+    const deleteReview = async (reviewId) => {
+        try {
+            await axios.delete(`http://localhost:5005/delete-review/${reviewId}`, { withCredentials: true });
+            setReviews(reviews.filter(review => review._id !== reviewId));
+        } catch (error) {
+            console.error('Error deleting review', error);
+        }
+    };
+
     useEffect(() => {
         const fetchReviews = async () => {
             try{
@@ -32,6 +41,7 @@ const ReviewDisplay = ({volumeId}) => {
                         <div>User: {review.user.name}</div>
                         <div>Rating: {review.rating} stars</div>
                         <div>Comment: {review.comment}</div>
+                        <button onClick={() => deleteReview(review._id)}>Delete Review</button>
                     </div>
                 ))
             )}
