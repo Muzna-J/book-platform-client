@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import StarRating from './StarRating';
 
-const ReviewForm = ({ volumeId }) => {
+const ReviewForm = ({ volumeId, triggerRefresh }) => {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
 
@@ -11,6 +11,7 @@ const ReviewForm = ({ volumeId }) => {
         try{
             const response = await axios.post('http://localhost:5005/add-review', {rating, comment, volumeId}, {withCredentials:true});
             console.log('Review submitted', response.data);
+            triggerRefresh();
         } catch (error) {
             console.error('Error submitting review', error.response);
         }

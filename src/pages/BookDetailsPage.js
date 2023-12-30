@@ -11,6 +11,11 @@ function BookDetailsPage() {
     const { addToReadingList } = useContext(ReadingListContext);
     const [bookDetails, setBookDetails] = useState(null);
     const { volumeId } = useParams();
+    const [refreshKey, setRefreshKey] = useState(0);
+
+    const triggerRefresh = () => {
+        setRefreshKey(prevKey => prevKey + 1); // Increment the key to trigger a re-render
+    };
 
     useEffect(() => {
         const fetchBookDetails = async () => {
@@ -74,8 +79,8 @@ function BookDetailsPage() {
             )}
             {pageCount && <p><strong>Page Count:</strong> {pageCount}</p>}
             {language && <p><strong>Language:</strong> {language.toUpperCase()}</p>}
-            <ReviewForm volumeId={bookDetails.id} />
-            <ReviewDisplay volumeId={bookDetails.id} />
+            <ReviewForm volumeId={bookDetails.id}  triggerRefresh={triggerRefresh} />
+            <ReviewDisplay volumeId={bookDetails.id} key={refreshKey} />
             <button onClick={handleAddToReadingList}>Add to Reading List</button>
         </div>
     );  
