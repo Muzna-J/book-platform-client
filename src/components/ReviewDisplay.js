@@ -1,9 +1,25 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReviewForm from './ReviewForm';
 
-const ReviewDisplay = ({volumeId}) => {
+const ReviewDisplay = ({volumeId, triggerRefresh}) => {
     const [reviews, setReviews] = useState([]);
     const [noReviewsMessage, setNoReviewsMessage] = useState('');
+    const [editingReview, setEditingReview] = useState(null);
+    const [showForm, setShowForm] = useState(false);
+    
+
+    const startEditing = (review) => {
+        setEditingReview(review);
+        if (!showForm) {
+            setShowForm(true);
+        }
+    };
+
+    const hideForm = () => {
+        setEditingReview(null);
+        setShowForm(false);
+    };
 
     const deleteReview = async (reviewId) => {
         try {
@@ -12,6 +28,11 @@ const ReviewDisplay = ({volumeId}) => {
         } catch (error) {
             console.error('Error deleting review', error);
         }
+    };
+
+    const handleRefresh = () => {
+        triggerRefresh();
+        hideForm();
     };
 
     useEffect(() => {
@@ -29,7 +50,7 @@ const ReviewDisplay = ({volumeId}) => {
             }
         };
         fetchReviews();
-    }, [volumeId]);
+    }, [volumeId, triggerRefresh]);
 
     return (
         <div>
@@ -41,12 +62,28 @@ const ReviewDisplay = ({volumeId}) => {
                         <div>User: {review.user.name}</div>
                         <div>Rating: {review.rating} stars</div>
                         <div>Comment: {review.comment}</div>
+                        <button onClick={() => startEditing(review)}>Edit Review</button>
                         <button onClick={() => deleteReview(review._id)}>Delete Review</button>
                     </div>
                 ))
             )}
+
+            {showForm && (
+
+                <ReviewForm
+                    volumeId={volumeId}
+                    existingReview={editingReview}
+                    triggerRefresh={handleRefresh}
+                        
+                />
+            )}
+
         </div>
     );
 };
 
 export default ReviewDisplay;
+
+
+
+

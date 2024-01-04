@@ -1,26 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import StarRating from './StarRating';
 
-const ReviewForm = ({ volumeId, triggerRefresh }) => {
+
+const ReviewForm = ({ volumeId, existingReview, triggerRefresh }) => {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
+    const [isEditing, setIsEditing] = useState(false);
+    
+
+
+    useEffect(() => {
+        if (existingReview) {
+            setRating(existingReview.rating);
+            setComment(existingReview.comment);
+            setIsEditing(true);
+        }
+    }, [existingReview]);
+
 
     const handleSubmit= async (e) => {
         e.preventDefault();
-        try{
-            const response = await axios.post('http://localhost:5005/add-review', {rating, comment, volumeId}, {withCredentials:true});
-            console.log('Review submitted', response.data);
+        const url = isEditing ? `http://localhost:5005/edit-review/${existingReview._id}` : 'http://localhost:5005/add-review';
+        const method = isEditing ? axios.put : axios.post;
+        try {
+            await method(url, { rating, comment, volumeId }, { withCredentials: true });
             triggerRefresh();
+            
         } catch (error) {
             console.error('Error submitting review', error.response);
         }
-        };
+    };
 
         return (
             <form onSubmit={handleSubmit}>
                 <StarRating rating={rating} setRating={setRating} />
-                <textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder='Add your review here'></textarea>
+                <textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder={ 'Add your review here'}></textarea>
                 <button type='submit'>Submit Review</button>
             </form>
         );
@@ -28,3 +43,6 @@ const ReviewForm = ({ volumeId, triggerRefresh }) => {
     };
 
 export default ReviewForm;
+
+
+
