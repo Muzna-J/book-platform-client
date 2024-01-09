@@ -1,19 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import ReviewForm from './ReviewForm';
+import { UserContext } from '../context/UserContext';
 
 const ReviewDisplay = ({volumeId, triggerRefresh}) => {
     const [reviews, setReviews] = useState([]);
     const [noReviewsMessage, setNoReviewsMessage] = useState('');
     const [editingReview, setEditingReview] = useState(null);
     const [showForm, setShowForm] = useState(false);
+    const { currentUser } = useContext(UserContext);
     
 
     const startEditing = (review) => {
         setEditingReview(review);
         if (!showForm) {
             setShowForm(true);
-        }
+        }  
+    };
+
+    const handleSubmissionSuccess = () => {
+        setShowForm(false); 
+        triggerRefresh();   
     };
 
     const hideForm = () => {
@@ -57,31 +64,44 @@ const ReviewDisplay = ({volumeId, triggerRefresh}) => {
             {noReviewsMessage ? (
                 <p>{noReviewsMessage}</p>
             ) : (
-                reviews.map((review, index) => (
-                    <div key={index}>
-                        <div>User: {review.user.name}</div>
-                        <div>Rating: {review.rating} stars</div>
-                        <div>Comment: {review.comment}</div>
-                        <button onClick={() => startEditing(review)}>Edit Review</button>
-                        <button onClick={() => deleteReview(review._id)}>Delete Review</button>
-                    </div>
-                ))
+                reviews.map((review, index) => {
+                    const isCurrentUser = currentUser && review.user._id === currentUser.id;
+                    console.log("Current User ID:", currentUser?.id, "Review User ID:", review.user._id, "Is Current User:", isCurrentUser);
+                    // Log the information outside of the JSX, but inside the map callback
+                    //  console.log("Review User ID:", review.user, "Type:", typeof review.user);
+    
+                    // Return the JSX explicitly
+                    return (
+                        <div key={index}>
+                            <div>User: {review.user.name}</div>
+                            <div>Rating: {review.rating} stars</div>
+                            <div>Comment: {review.comment}</div>
+
+                            {isCurrentUser && (
+                                <>
+    
+                            <button onClick={() => startEditing(review)}>Edit Review</button>
+                            <button onClick={() => deleteReview(review._id)}>Delete Review</button>
+                            </>
+                            )}
+                        </div>
+                    );
+                })
             )}
-
+    
             {showForm && (
-
                 <ReviewForm
                     volumeId={volumeId}
                     existingReview={editingReview}
                     triggerRefresh={handleRefresh}
-                        
+                    hideForm={hideForm}
+                    onSubmitSuccess={handleSubmissionSuccess}
                 />
             )}
-
         </div>
     );
-};
-
+    
+ }
 export default ReviewDisplay;
 
 

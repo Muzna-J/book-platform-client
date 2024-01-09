@@ -9,10 +9,12 @@ import BookDetailsPage from './pages/BookDetailsPage';
 import ReadingList from './components/ReadingList';
 import { ReadingListProvider } from './context/ReadingListContext';
 import Logout from './components/Logout';
+import { UserProvider } from './context/UserContext';
 
 
 function App() {
   return (
+    <UserProvider>
     <ReadingListProvider>
     <Router>
     <Navbar />
@@ -26,7 +28,8 @@ function App() {
     <Route path='/logout' element={<Logout />} />
     </Routes>
     </Router>
-    </ReadingListProvider> 
+    </ReadingListProvider>
+    </UserProvider> 
     
   );
 }

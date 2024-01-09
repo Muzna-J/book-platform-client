@@ -3,7 +3,7 @@ import axios from 'axios';
 import StarRating from './StarRating';
 
 
-const ReviewForm = ({ volumeId, existingReview, triggerRefresh }) => {
+const ReviewForm = ({ volumeId, existingReview, triggerRefresh, hideForm, onSubmitSuccess }) => {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
     const [isEditing, setIsEditing] = useState(false);
@@ -26,6 +26,8 @@ const ReviewForm = ({ volumeId, existingReview, triggerRefresh }) => {
         try {
             await method(url, { rating, comment, volumeId }, { withCredentials: true });
             triggerRefresh();
+            hideForm();
+            onSubmitSuccess();
             
         } catch (error) {
             console.error('Error submitting review', error.response);
@@ -34,15 +36,17 @@ const ReviewForm = ({ volumeId, existingReview, triggerRefresh }) => {
 
         return (
             <form onSubmit={handleSubmit}>
+                <h3>{isEditing ? 'Edit Review' : 'Add Review'}</h3>
                 <StarRating rating={rating} setRating={setRating} />
                 <textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder={ 'Add your review here'}></textarea>
-                <button type='submit'>Submit Review</button>
+                <button type='submit'>{isEditing ? 'Update Review' : 'Submit Review'}</button>
             </form>
         );
 
     };
 
 export default ReviewForm;
+
 
 
 
