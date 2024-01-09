@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
+
 function LoginPage() {
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
     const navigate = useNavigate();
+    const { refreshCurrentUser } = useContext(UserContext);
     
 
     const handleSubmit = (e) => {
@@ -16,6 +19,7 @@ function LoginPage() {
 
         axios.post ('http://localhost:5005/login', {email, password}, { withCredentials: true })
         .then(response => {
+            refreshCurrentUser();
             console.log(response.data);
             navigate('/profile') ;
         })

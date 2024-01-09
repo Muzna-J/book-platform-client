@@ -8,7 +8,8 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
 
-  useEffect(() => {
+
+  
     // Fetch the user from your backend
     const fetchUser = async () => {
       try {
@@ -18,19 +19,26 @@ export const UserProvider = ({ children }) => {
         console.log("Fetched user data:", response.data.currentUser);
         if (response.data.currentUser) {
           setCurrentUser(response.data.currentUser);
+        } else {
+            setCurrentUser(null);
         }
       } catch (error) {
         console.error('Error fetching current user', error);
       }
     };
 
-    fetchUser();
-  }, []);
+    useEffect(() => {
+        fetchUser();
+      }, []);
 
-  
+      const refreshCurrentUser = () => {
+        fetchUser(); // Reuse the fetchUser function to refresh the current user
+      };
+
+
 
   return (
-    <UserContext.Provider value={{ currentUser, setCurrentUser }}> 
+    <UserContext.Provider value={{ currentUser, setCurrentUser, refreshCurrentUser }}> 
       {children}
     </UserContext.Provider>
   );
