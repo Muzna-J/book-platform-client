@@ -44,18 +44,24 @@ function HomePage() {
 
 
     return (
-        <div className="HomePage">
-            <h2>Featured Books</h2>
-            <form onSubmit={handleSearch}>
-            <input 
-                    type="text" 
-                    name="search" 
-                    placeholder="Search books..."  
+        <div className="HomePage bg-custom-beige min-h-screen">
+            <div className="text-center p-6">
+                <h2 className="text-2xl font-bold mb-4">Welcome to BookFinder!</h2>
+                <p className="mb-4">Discover your next great read with BookFinder. Explore a wide range of books across various genres, from fiction to biographies. Start by searching for a book, browse through our featured selections, add favorites to your reading list, and share your thoughts with book reviews. Whether you're looking for new recommendations or eager to review your latest read, BookFinder makes it easy and enjoyable.</p>
+                <div className="flex justify-center items-center">
+                    <form onSubmit={handleSearch} className="mb-4">
+                        <input 
+                            type="text" 
+                            name="search" 
+                            placeholder="Search books..."
+                            className="mr-2 p-2 border rounded-full"  
                 />
-                <button type="submit">Search</button>
-            </form>
+                        <button type="submit" className="bg-custom-crimson 500 hover:bg-custom-dusty 700 text-white font-bold py-2 px-4 rounded">Search</button>
+                     </form>
+                </div>
+            </div>
             {isLoading ? <p>Loading...</p> : (
-            <div className="book-list">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {books.map(book => (
                     <BookCard key={book.volumeId} book={book} />
                 ))}

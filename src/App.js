@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import '../src/styles/tailwind.css'
 import './App.css';
+import './index.css';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
@@ -10,6 +12,7 @@ import ReadingList from './components/ReadingList';
 import { ReadingListProvider } from './context/ReadingListContext';
 import Logout from './components/Logout';
 import { UserProvider } from './context/UserContext';
+
 
 
 function App() {
