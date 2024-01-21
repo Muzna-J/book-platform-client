@@ -1,6 +1,7 @@
 import {  useContext, useEffect } from 'react';
-
 import { ReadingListContext } from '../context/ReadingListContext';
+import { Link } from 'react-router-dom';
+import BookCard from './BookCard';
 
 const ReadingList = () =>  {
     const { readingList, fetchReadingList, removeFromReadingList } = useContext(ReadingListContext);
@@ -20,7 +21,7 @@ const ReadingList = () =>  {
       
 
     if (!Array.isArray(readingList) || readingList.length === 0) {
-        return <div>No books in your reading list yet.</div>;
+        return <div className="text-center my-4">No books in your reading list yet.</div>;
     }
 
     const handleDelete = (book) => {
@@ -28,18 +29,29 @@ const ReadingList = () =>  {
     };
 
     return (
-        <div>
-            <h2>My Reading List</h2>
+        <div className="bg-custom-beige ">
+            <h2 className="text-2xl font-bold mb-4">My Reading List</h2>
 
-            <ul>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {readingList.map((book) => (
-                    <li key={book._id}>
-                    <img src={book.thumbnail} alt={`Cover of ${book.title}`} />
-                        <p>{book.title}</p>
-                        <button onClick={() => handleDelete(book)}>Remove</button>
-                    </li>
+                    <div key={book._id} className="bg-custom-beige  rounded-lg overflow-hidden flex flex-col items-center min-w-[200px] min-h-[350px]">
+                    
+                    <BookCard book={{ 
+                            //title: book.title, 
+                            coverImage: book.thumbnail, 
+                            volumeId: book.volumeId 
+                        }} />
+
+                        
+                       
+                
+                        <button onClick={() => handleDelete(book)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 mt-2 rounded">Remove</button>
+                    </div>
+                    
+                    
+                    
                 ))}
-            </ul>
+            </div>
         </div>
     );
 }

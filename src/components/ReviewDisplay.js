@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import ReviewForm from './ReviewForm';
 import { UserContext } from '../context/UserContext';
+import StarRatingDisplay from './StarRatingDisplay';
 
 const ReviewDisplay = ({volumeId, triggerRefresh}) => {
     const [reviews, setReviews] = useState([]);
@@ -42,6 +43,8 @@ const ReviewDisplay = ({volumeId, triggerRefresh}) => {
         hideForm();
     };
 
+    
+
     useEffect(() => {
         const fetchReviews = async () => {
             try{
@@ -60,10 +63,13 @@ const ReviewDisplay = ({volumeId, triggerRefresh}) => {
     }, [volumeId, triggerRefresh]);
 
     return (
-        <div>
-            {noReviewsMessage ? (
-                <p>{noReviewsMessage}</p>
-            ) : (
+        <div className='my-4'>
+        <h2 className="text-xl font-bold mb-4">Reviews</h2>
+        
+        {reviews.length === 0 ? (
+            <p className='text-gray-600 italic'>No reviews yet.</p>
+        ) : (
+                
                 reviews.map((review, index) => {
                     const isCurrentUser = currentUser && review.user._id === currentUser.id;
                     console.log("Current User ID:", currentUser?.id, "Review User ID:", review.user._id, "Is Current User:", isCurrentUser);
@@ -72,20 +78,20 @@ const ReviewDisplay = ({volumeId, triggerRefresh}) => {
     
                     // Return the JSX explicitly
                     return (
-                        <div key={index}>
-                            <div>User: {review.user.name}</div>
-                            <div>Rating: {review.rating} stars</div>
-                            <div>Comment: {review.comment}</div>
+                        <div key={index} className='bg-white p-4 rounded-lg shadow-md mb-4 max-w-xl'>
+                            <div className='font-bold'>{review.user.name}</div>
+                            <StarRatingDisplay rating={review.rating} />
+                            <p className='text-gray-700'>{review.comment}</p>
 
                             {isCurrentUser && (
-                                <>
+                                <div className="flex justify-center mt-2">
     
-                            <button onClick={() => startEditing(review)}>Edit Review</button>
-                            <button onClick={() => deleteReview(review._id)}>Delete Review</button>
-                            </>
-                            )}
+                                    <button onClick={() => startEditing(review)} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded mr-2'>Edit Review</button>
+                                    <button onClick={() => deleteReview(review._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">Delete Review</button>
                         </div>
-                    );
+                    )};
+                    </div>
+                );
                 })
             )}
     

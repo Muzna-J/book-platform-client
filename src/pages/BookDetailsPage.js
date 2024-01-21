@@ -5,6 +5,8 @@ import axios from 'axios';
 import ReviewForm from '../components/ReviewForm';
 import ReviewDisplay from '../components/ReviewDisplay';
 import { UserContext } from '../context/UserContext';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 
 
 
@@ -60,30 +62,51 @@ function BookDetailsPage() {
     };
         
     if(!bookDetails) {
-        return <div>Loading....</div>
+        return <div className='flex justify-center items-center min-h-screen'>Loading....</div>
     }
 
     const { volumeInfo } = bookDetails;
     const { title, authors, publisher, publishedDate, description, industryIdentifiers, pageCount, imageLinks, language } = volumeInfo;
-
+    const cleanDescription = DOMPurify.sanitize(description);
+    console.log('Description value:', description);
+    console.log(typeof description);
     return (
-        <div className="book-details">
-            <h2>{title}</h2>
-            {imageLinks?.thumbnail && <img src={imageLinks.thumbnail} alt={`Cover of ${title}`} />}
-            {authors && <p><strong>Author(s):</strong> {authors.join(', ')}</p>}
-            {publisher && <p><strong>Publisher:</strong> {publisher}</p>}
-            {publishedDate && <p><strong>Published Date:</strong> {publishedDate}</p>}
-            {description && <p><strong>Description:</strong> {description}</p>}
+        <div className="book-details p-6 bg-custom-beige font-mono">
+        <div className="max-w-2xl mx-auto bg-custom-dusty shadow-lg rounded-lg overflow-hidden">
+        <div className="md:flex">
+            {imageLinks?.thumbnail && (
+                <div className="md:flex-shrink-0">
+                <img src={imageLinks.thumbnail} alt={`Cover of ${title}`} className="mb-2" />
+                </div>
+                    )}
+                    <div className="p-8">
+                
+                
+            {title && <p className="mt-2 text-black-600"><strong>Title:</strong> {title}</p>}
+            {authors && <p className=" text-black-600"><strong>Author(s):</strong> {authors.join(', ')}</p>}
+            {publisher && <p className="text-black-600"><strong>Publisher:</strong> {publisher}</p>}
+            {publishedDate && <p className="text-black-600"><strong>Published Date:</strong> {publishedDate}</p>}
+            {description && (
+    <div className="text-black-600 text-justify">
+        <strong>Description:</strong>
+        <div>{parse(cleanDescription)}</div>
+    </div>
+)}
             {industryIdentifiers && (
-                <p>
+                <p className="text-black-600">
                     <strong>ISBN:</strong> {industryIdentifiers.map(id => `${id.type}: ${id.identifier}`).join(', ')}
                 </p>
             )}
-            {pageCount && <p><strong>Page Count:</strong> {pageCount}</p>}
-            {language && <p><strong>Language:</strong> {language.toUpperCase()}</p>}
-            <ReviewForm volumeId={bookDetails.id}  triggerRefresh={triggerRefresh} />
-            <ReviewDisplay volumeId={bookDetails.id} key={refreshKey} triggerRefresh={triggerRefresh} />
-            <button onClick={handleAddToReadingList}>Add to Reading List</button>
+            {pageCount && <p className="text-black-600"><strong>Page Count:</strong> {pageCount}</p>}
+            {language && <p className="text-black-600"><strong>Language:</strong> {language.toUpperCase()}</p>}
+            <div className='flex justify-center'>
+            <button onClick={handleAddToReadingList} className="bg-custom-crimson hover:bg-custom-beige 700 text-white font-bold py-2 px-4 rounded-full mt-4">Add to Reading List</button>
+            </div>
+            </div>
+            </div>
+        </div>
+        <ReviewForm volumeId={bookDetails.id}  triggerRefresh={triggerRefresh} className="mt-6" />
+        <ReviewDisplay volumeId={bookDetails.id} key={refreshKey} triggerRefresh={triggerRefresh} className="mt-6" />
         </div>
     );  
 }; 

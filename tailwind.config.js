@@ -14,6 +14,9 @@ module.exports = {
         'custom-dusty': '#A76D60',
         'custom-crimson': '#601700',
       },
+      fontFamily: {
+        'mono': ['Courier', 'Courier New', 'monospace'],
+      },
     },
   },
   plugins: [],

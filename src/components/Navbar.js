@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 function Navbar() {
     return (
-        <div className="bg-custom-crimson text-custom-white p-2">
+        <div className="bg-custom-crimson text-custom-white font-mono p-2">
             <div className="container mx-auto flex justify-between items-center">
                 <Link to='/home' className="text-xl font-bold">BookFinder</Link>
                 <div className="flex space-x-4">

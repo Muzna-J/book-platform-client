@@ -45,9 +45,9 @@ function HomePage() {
 
     return (
         <div className="HomePage bg-custom-beige min-h-screen">
-            <div className="text-center p-6">
+            <div className="text-center font-mono p-6">
                 <h2 className="text-2xl font-bold mb-4">Welcome to BookFinder!</h2>
-                <p className="mb-4">Discover your next great read with BookFinder. Explore a wide range of books across various genres, from fiction to biographies. Start by searching for a book, browse through our featured selections, add favorites to your reading list, and share your thoughts with book reviews. Whether you're looking for new recommendations or eager to review your latest read, BookFinder makes it easy and enjoyable.</p>
+                <p className="mb-4 text-center">Discover your next great read with BookFinder. Explore a wide range of books across various genres, from fiction to biographies. Start by searching for a book, browse through our featured selections, add favorites to your reading list, and share your thoughts with book reviews. Whether you're looking for new recommendations or eager to review your latest read, BookFinder makes it easy and enjoyable.</p>
                 <div className="flex justify-center items-center">
                     <form onSubmit={handleSearch} className="mb-4">
                         <input 
@@ -56,7 +56,7 @@ function HomePage() {
                             placeholder="Search books..."
                             className="mr-2 p-2 border rounded-full"  
                 />
-                        <button type="submit" className="bg-custom-crimson 500 hover:bg-custom-dusty 700 text-white font-bold py-2 px-4 rounded">Search</button>
+                        <button type="submit" className="bg-custom-crimson 500 hover:bg-custom-dusty 700 text-white font-bold py-2 px-4 rounded-full">Search</button>
                      </form>
                 </div>
             </div>

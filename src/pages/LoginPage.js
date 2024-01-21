@@ -34,24 +34,28 @@ function LoginPage() {
     }
 
     return (
-    <div className='LoginPage'>
-        <form onSubmit={handleSubmit}>
-            <label>Email</label>
+    <div className='LoginPage flex justify-center items-center min-h-screen bg-custom-beige' >
+        <form onSubmit={handleSubmit} className='bg-custom-dusty shadow-md rounded px-8 pt-6 pb-8 mb-4 w-80'>
+            <label className='font-mono font-bold'>Email</label>
             <input
             type='email'
             name='email'
             value={email}
             onChange={(e)=> setEmail(e.target.value)}
+            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
             />
-            <label>Password</label>
+            <label className='font-mono font-bold'>Password</label>
             <input
             type='password'
             name='password'
             value={password}
             onChange={(e)=> setPassword(e.target.value)}
+            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
             />
+            <div className='flex  justify-center items-center mt-5'>
 
-            <button type='submit'>Login</button>
+            <button type='submit' className='bg-custom-crimson hover:bg-custom-beige text-white font-mono font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline'>Login</button>
+            </div>
 
         </form>
     </div>
