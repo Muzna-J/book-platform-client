@@ -17,6 +17,9 @@ module.exports = {
       fontFamily: {
         'mono': ['Courier', 'Courier New', 'monospace'],
       },
+      height: {
+        '180': '180px',
+      }
     },
   },
   plugins: [],

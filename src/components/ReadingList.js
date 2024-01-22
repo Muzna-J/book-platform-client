@@ -29,12 +29,13 @@ const ReadingList = () =>  {
     };
 
     return (
-        <div className="bg-custom-beige ">
+        <div className="bg-custom-beige min-h-screen ">
+        <div className="text-center font-mono p-6">
             <h2 className="text-2xl font-bold mb-4">My Reading List</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {readingList.map((book) => (
-                    <div key={book._id} className="bg-custom-beige  rounded-lg overflow-hidden flex flex-col items-center min-w-[200px] min-h-[350px]">
+                    <div key={book._id} className="flex flex-col items-center">
                     
                     <BookCard book={{ 
                             //title: book.title, 
@@ -47,10 +48,11 @@ const ReadingList = () =>  {
                 
                         <button onClick={() => handleDelete(book)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 mt-2 rounded">Remove</button>
                     </div>
-                    
+                   
                     
                     
                 ))}
+            </div>
             </div>
         </div>
     );
