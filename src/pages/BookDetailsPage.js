@@ -7,6 +7,7 @@ import ReviewDisplay from '../components/ReviewDisplay';
 import { UserContext } from '../context/UserContext';
 import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
+import { toast } from 'react-toastify';
 
 
 
@@ -51,6 +52,7 @@ function BookDetailsPage() {
                     withCredentials: true 
                 });
                 addToReadingList(response.data.book);
+                toast.success('Book added to reading list!');
                 
     
                 console.log(response.data.message);
@@ -105,7 +107,7 @@ function BookDetailsPage() {
             </div>
             </div>
         </div>
-        <ReviewForm volumeId={bookDetails.id}  triggerRefresh={triggerRefresh} className="mt-6" />
+        {/* <ReviewForm volumeId={bookDetails.id}  triggerRefresh={triggerRefresh} className="mt-6" /> */}
         <ReviewDisplay volumeId={bookDetails.id} key={refreshKey} triggerRefresh={triggerRefresh} className="mt-6" />
         </div>
     );  

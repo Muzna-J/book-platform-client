@@ -3,6 +3,7 @@ import axios from 'axios';
 import ReviewForm from './ReviewForm';
 import { UserContext } from '../context/UserContext';
 import StarRatingDisplay from './StarRatingDisplay';
+import { toast } from 'react-toastify';
 
 const ReviewDisplay = ({volumeId, triggerRefresh}) => {
     const [reviews, setReviews] = useState([]);
@@ -21,11 +22,13 @@ const ReviewDisplay = ({volumeId, triggerRefresh}) => {
 
     const handleSubmissionSuccess = () => {
         setShowForm(false); 
-        triggerRefresh();   
+        triggerRefresh(); 
+        
+
     };
 
     const hideForm = () => {
-        setEditingReview(null);
+        //setEditingReview(null);
         setShowForm(false);
     };
 
@@ -41,6 +44,11 @@ const ReviewDisplay = ({volumeId, triggerRefresh}) => {
     const handleRefresh = () => {
         triggerRefresh();
         hideForm();
+    };
+
+    const handleAddReviewClick = () => {
+        setEditingReview(null); // Ensure no review is being edited
+        setShowForm(true);      // Show the form
     };
 
     
@@ -64,7 +72,27 @@ const ReviewDisplay = ({volumeId, triggerRefresh}) => {
 
     return (
         <div className='my-4'>
-        <h2 className="text-xl font-bold mb-4">Reviews</h2>
+        
+        {/* <button onClick={handleAddReviewClick} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4">
+                Add Review
+            </button> */}
+
+            {showForm && (
+                <ReviewForm
+                    volumeId={volumeId}
+                    existingReview={editingReview}
+                    triggerRefresh={handleRefresh}
+                    hideForm={hideForm}
+                    onSubmitSuccess={handleSubmissionSuccess}
+                />
+            )}
+            <h2 className="text-xl font-bold mb-4">Reviews</h2>
+            {!showForm && (
+                <button onClick={handleAddReviewClick} className="your-button-styles">
+                    Add Review
+                </button>
+            )}
+           
         
         {reviews.length === 0 ? (
             <p className='text-gray-600 italic'>No reviews yet.</p>
@@ -95,15 +123,7 @@ const ReviewDisplay = ({volumeId, triggerRefresh}) => {
                 })
             )}
     
-            {showForm && (
-                <ReviewForm
-                    volumeId={volumeId}
-                    existingReview={editingReview}
-                    triggerRefresh={handleRefresh}
-                    hideForm={hideForm}
-                    onSubmitSuccess={handleSubmissionSuccess}
-                />
-            )}
+       
         </div>
     );
     

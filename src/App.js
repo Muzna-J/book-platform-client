@@ -12,15 +12,18 @@ import ReadingList from './components/ReadingList';
 import { ReadingListProvider } from './context/ReadingListContext';
 import Logout from './components/Logout';
 import { UserProvider } from './context/UserContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
 function App() {
   return (
-    <UserProvider>
+    <UserProvider> 
     <ReadingListProvider>
     <Router>
     <Navbar />
+    <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     <Routes>   
     <Route path='/signup' element={<SignupPage />} />
     <Route path='/login' element={<LoginPage />} />

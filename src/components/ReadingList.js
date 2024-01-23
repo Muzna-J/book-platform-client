@@ -2,6 +2,7 @@ import {  useContext, useEffect } from 'react';
 import { ReadingListContext } from '../context/ReadingListContext';
 import { Link } from 'react-router-dom';
 import BookCard from './BookCard';
+import { toast } from 'react-toastify';
 
 const ReadingList = () =>  {
     const { readingList, fetchReadingList, removeFromReadingList } = useContext(ReadingListContext);
@@ -26,6 +27,7 @@ const ReadingList = () =>  {
 
     const handleDelete = (book) => {
         removeFromReadingList(book);
+        toast.success('Book removed!');
     };
 
     return (
