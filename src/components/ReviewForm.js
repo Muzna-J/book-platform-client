@@ -23,6 +23,10 @@ const ReviewForm = ({ volumeId, existingReview, triggerRefresh, hideForm, onSubm
 
     const handleSubmit= async (e) => {
         e.preventDefault();
+        if (rating === 0 || comment.trim() === '') {
+            toast.error("Please provide both a rating and a comment.");
+            return;
+        }
         const url = isEditing ? `http://localhost:5005/edit-review/${existingReview._id}` : 'http://localhost:5005/add-review';
         const method = isEditing ? axios.put : axios.post;
         try {
