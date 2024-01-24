@@ -72,13 +72,15 @@ function BookDetailsPage() {
     const cleanDescription = DOMPurify.sanitize(description);
     console.log('Description value:', description);
     console.log(typeof description);
+
+
     return (
         <div className="book-details p-6 bg-custom-beige font-mono">
         <div className="max-w-2xl mx-auto bg-custom-dusty shadow-lg rounded-lg overflow-hidden">
         <div className="md:flex">
             {imageLinks?.thumbnail && (
                 <div className="md:flex-shrink-0">
-                <img src={imageLinks.thumbnail} alt={`Cover of ${title}`} className="mb-2" />
+                <img src={imageLinks.thumbnail} alt={`Cover of ${title}`} className="p-2" />
                 </div>
                     )}
                     <div className="p-8">
@@ -101,10 +103,10 @@ function BookDetailsPage() {
             )}
             {pageCount && <p className="text-black-600"><strong>Page Count:</strong> {pageCount}</p>}
             {language && <p className="text-black-600"><strong>Language:</strong> {language.toUpperCase()}</p>}
-            <div className='flex justify-center'>
-            <button onClick={handleAddToReadingList} className="bg-custom-crimson hover:bg-custom-beige 700 text-white font-bold py-2 px-4 rounded-full mt-4">Add to Reading List</button>
             </div>
             </div>
+            <div className='flex justify-center mb-4'>
+            <button onClick={handleAddToReadingList} className="bg-custom-crimson hover:bg-custom-beige text-white font-bold py-2 px-4 rounded-full">Add to Reading List</button>
             </div>
         </div>
         {/* <ReviewForm volumeId={bookDetails.id}  triggerRefresh={triggerRefresh} className="mt-6" /> */}

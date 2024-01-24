@@ -1,4 +1,4 @@
-import {  useContext, useEffect } from 'react';
+import {  useContext, useEffect, useState } from 'react';
 import { ReadingListContext } from '../context/ReadingListContext';
 import { Link } from 'react-router-dom';
 import BookCard from './BookCard';
@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 
 const ReadingList = () =>  {
     const { readingList, fetchReadingList, removeFromReadingList } = useContext(ReadingListContext);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         if (readingList.length === 0) {
@@ -30,13 +31,29 @@ const ReadingList = () =>  {
         toast.success('Book removed!');
     };
 
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value.toLowerCase());
+    };
+
+    const filteredReadingList = searchTerm
+        ? readingList.filter(book =>
+              book.title.toLowerCase().includes(searchTerm) ||
+              (book.authors && book.authors.some(author => author.toLowerCase().includes(searchTerm))))
+        : readingList;
+
     return (
         <div className="bg-custom-beige min-h-screen ">
         <div className="text-center font-mono p-6">
             <h2 className="text-2xl font-bold mb-4">My Reading List</h2>
+            <input 
+                    type="text" 
+                    onChange={handleSearchChange}
+                    placeholder="Search reading list"
+                    className="mb-4 p-2 border rounded-full"  
+                />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {readingList.map((book) => (
+            {filteredReadingList.map((book) => (
                     <div key={book._id} className="flex flex-col items-center">
                     
                     <BookCard book={{ 
@@ -45,14 +62,9 @@ const ReadingList = () =>  {
                             volumeId: book.volumeId 
                         }} />
 
-                        
-                       
                 
-                        <button onClick={() => handleDelete(book)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 mt-2 rounded">Remove</button>
-                    </div>
-                   
-                    
-                    
+                    <button onClick={() => handleDelete(book)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 mt-2 rounded">Remove</button>
+                    </div>  
                 ))}
             </div>
             </div>
