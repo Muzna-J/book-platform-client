@@ -3,17 +3,28 @@ import { ReadingListContext } from '../context/ReadingListContext';
 import { Link } from 'react-router-dom';
 import BookCard from './BookCard';
 import { toast } from 'react-toastify';
+import Spinner from './Spinner';
 
 const ReadingList = () =>  {
     const { readingList, fetchReadingList, removeFromReadingList } = useContext(ReadingListContext);
     const [searchTerm, setSearchTerm] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         if (readingList.length === 0) {
             console.log("Reading list is empty, fetching data...");
-            fetchReadingList();
+            setIsLoading(true);
+            fetchReadingList().then(()=> {
+                setIsLoading(false)
+            })
+        } else {
+            setIsLoading(false);
         }
     }, []);
+
+    if (isLoading) {
+        return <Spinner />; 
+    }
 
     // useEffect(() => {
     //     console.log('Reading List Updated:', readingList);
