@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import StarRating from './StarRating';
 import { toast } from 'react-toastify';
 
 
 
-const ReviewForm = ({ volumeId, existingReview, triggerRefresh, hideForm, onSubmitSuccess, cancelEditing }) => {
+const ReviewForm = ({ volumeId, existingReview, triggerRefresh, hideForm, onSubmitSuccess, cancelEditing, currentUser }) => {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
     const [isEditing, setIsEditing] = useState(false);
+    const navigate = useNavigate();
     
 
 
@@ -23,6 +25,11 @@ const ReviewForm = ({ volumeId, existingReview, triggerRefresh, hideForm, onSubm
 
     const handleSubmit= async (e) => {
         e.preventDefault();
+        if (!currentUser) {
+            // Redirect to the signup page
+            navigate('/signup');
+            return;
+        }
         if (rating === 0 || comment.trim() === '') {
             toast.error("Please provide both a rating and a comment.");
             return;

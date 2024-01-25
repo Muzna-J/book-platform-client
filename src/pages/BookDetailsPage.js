@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ReadingListContext } from '../context/ReadingListContext';
 import axios from 'axios';
 import ReviewForm from '../components/ReviewForm';
@@ -16,6 +16,8 @@ function BookDetailsPage() {
     const [bookDetails, setBookDetails] = useState(null);
     const { volumeId } = useParams();
     const [refreshKey, setRefreshKey] = useState(0);
+    const { currentUser } = useContext(UserContext);
+    const navigate = useNavigate();
     
 
     const triggerRefresh = () => {
@@ -39,6 +41,11 @@ function BookDetailsPage() {
     }, [volumeId]);
 
     const handleAddToReadingList = async () => {
+        if (!currentUser) {
+            // Redirect to signup/login page
+            navigate('/signup');
+            return;
+        }
         if (bookDetails) {
             try {
                 const response = await axios.post('http://localhost:5005/reading-list/add', {

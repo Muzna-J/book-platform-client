@@ -11,6 +11,7 @@ const ReviewDisplay = ({ volumeId, triggerRefresh }) => {
     const [editingReview, setEditingReview] = useState(null);
     const [showForm, setShowForm] = useState(true);  // Initially show the form
     const { currentUser } = useContext(UserContext);
+    
 
     const startEditing = (review) => {
         setEditingReview(review);
@@ -41,6 +42,7 @@ const ReviewDisplay = ({ volumeId, triggerRefresh }) => {
         const fetchReviews = async () => {
             try {
                 const response = await axios.get(`http://localhost:5005/get-reviews/${volumeId}`, { withCredentials: true });
+                console.log('response is', response.data)
                 if (!response.data.message) {
                     setReviews(response.data);
                     const userHasReviewed = response.data.some(review => review.user._id === currentUser?.id);
@@ -63,6 +65,7 @@ const ReviewDisplay = ({ volumeId, triggerRefresh }) => {
                     hideForm={() => setShowForm(false)}
                     onSubmitSuccess={handleSubmissionSuccess}
                     cancelEditing={cancelEditing}
+                    currentUser={currentUser}
                 />
             )}
 
