@@ -52,6 +52,7 @@ function HomePage() {
                     <form onSubmit={handleSearch} className="mb-4">
                         <input 
                             type="text" 
+                            value={searchTerm}
                             name="search" 
                             placeholder="Search books..."
                             className="mr-2 p-2 border rounded-full"  

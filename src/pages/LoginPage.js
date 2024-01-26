@@ -21,7 +21,7 @@ function LoginPage() {
         .then(response => {
             refreshCurrentUser();
             console.log(response.data);
-            navigate('/profile') ;
+            navigate('/home') ;
         })
         .catch(error => {
             if(error.response) {
