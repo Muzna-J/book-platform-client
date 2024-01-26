@@ -5,6 +5,33 @@ function SignupPage() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordCriteria, setPasswordCriteria] = useState({
+        minLength: false,
+        number: false,
+        lowercase: false,
+        uppercase: false,
+        specialChar: false
+    });
+
+    const checkPasswordCriteria = (password) => {
+        const criteria = {
+            minLength: password.length >= 8,
+            number: /[0-9]/.test(password),
+            lowercase: /[a-z]/.test(password),
+            uppercase: /[A-Z]/.test(password),
+            specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+        };
+        setPasswordCriteria(criteria);
+    };
+
+    const handlePasswordChange = (e) => {
+        const newPassword = e.target.value;
+        setPassword(newPassword);
+        checkPasswordCriteria(newPassword);
+    };
+
+    const criteriaClass = (isMet) => 
+        isMet ? "text-green-500" : "text-red-500";
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -54,9 +81,17 @@ function SignupPage() {
             type="password"
             name= "password"
             value= {password}
-            onChange={(e)=> setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
             />
+
+            <ul className="list-disc ml-5 mt-2">
+                <li className={criteriaClass(passwordCriteria.minLength)}>At least 8 characters</li>
+                <li className={criteriaClass(passwordCriteria.number)}>Includes a number</li>
+                <li className={criteriaClass(passwordCriteria.lowercase)}>Includes a lowercase letter</li>
+                <li className={criteriaClass(passwordCriteria.uppercase)}>Includes an uppercase letter</li>
+                <li className={criteriaClass(passwordCriteria.specialChar)}>Includes a special character</li>
+            </ul>
             <div className='flex  justify-center items-center mt-5'>
 
             <button type="submit" className='bg-custom-crimson hover:bg-custom-beige text-white font-mono font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline'>Signup</button>
