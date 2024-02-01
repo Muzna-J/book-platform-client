@@ -2,6 +2,9 @@ import { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function LoginPage() {
     const[email, setEmail] = useState('');
@@ -13,7 +16,7 @@ function LoginPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(!email || !password) {
-            alert('Please provide your email and password');
+            toast.error('Please provide your email and password');
             return;
         }
 
@@ -25,10 +28,9 @@ function LoginPage() {
         })
         .catch(error => {
             if(error.response) {
-                console.log(error.response.data);
-                alert(error.response.data.errorMessage)
+                toast.error('Invalid email or password');
             } else {
-                console.log('Error', error.message)
+                toast.error('An error occurred. Please try again later.');
             }
         });
     }

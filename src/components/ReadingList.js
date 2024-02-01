@@ -34,8 +34,16 @@ const ReadingList = () =>  {
       
 
     if (!Array.isArray(readingList) || readingList.length === 0) {
-        return <div className="text-center my-4">No books in your reading list yet.</div>;
+        return (
+            <div className="flex flex-col bg-custom-beige justify-center items-center min-h-screen">
+                <div className="text-center text-2xl my-4 font bold">
+                    No books in your reading list yet.
+                </div>
+            </div>
+        );
     }
+        
+    
 
     const handleDelete = (book) => {
         removeFromReadingList(book);

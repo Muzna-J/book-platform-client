@@ -8,11 +8,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'custom-beige': '#E0D0C1',
+        'custom-beige': '#CDC7E5',
         'custom-white': '#F7F9F9',
         'custom-green': '#00A676',
-        'custom-dusty': '#A76D60',
-        'custom-crimson': '#601700',
+        'custom-dusty': '#FFEC51',
+        'custom-crimson': '#7776BC',
       },
       fontFamily: {
         'mono': ['Courier', 'Courier New', 'monospace'],

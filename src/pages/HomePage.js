@@ -6,6 +6,7 @@ const keywords = ['fiction', 'history', 'science', 'adventure', 'mystery', 'fant
 function HomePage() {
     const [books, setBooks] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [initialLoad, setInitialLoad] = useState(true);
     
@@ -17,7 +18,8 @@ function HomePage() {
             setIsLoading(true);
              
             try {
-                const query = initialLoad ? keywords[Math.floor(Math.random() * keywords.length)] : searchTerm;
+                //const query = initialLoad ? keywords[Math.floor(Math.random() * keywords.length)] : searchTerm;
+                const query = searchTerm.trim() ? searchTerm : keywords[Math.floor(Math.random() * keywords.length)];
                 const response = await fetch(`http://localhost:5005/books?q=${query}`);
                 if(!response.ok) {
                     throw new Error('failed to fetch books')
@@ -31,16 +33,22 @@ function HomePage() {
                 setIsLoading(false);
             }
         };
+    //     fetchBooks();
+    // }, [searchTerm, initialLoad]);
+    if (initialLoad || searchTerm.trim()) {
         fetchBooks();
-    }, [searchTerm]);
+    }
+}, [searchTerm, initialLoad]);
 
     const handleSearch = (e) => {
         e.preventDefault();
-        setSearchTerm(e.target.search.value);
+        setSearchTerm(inputValue);
     };
 
 
-
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+    };
 
 
     return (
@@ -52,8 +60,9 @@ function HomePage() {
                     <form onSubmit={handleSearch} className="mb-4">
                         <input 
                             type="text" 
-                            value={searchTerm}
-                            name="search" 
+                            value={inputValue}
+                            name="bookSearch"
+                            onChange={handleInputChange}  
                             placeholder="Search books..."
                             className="mr-2 p-2 border rounded-full"  
                 />

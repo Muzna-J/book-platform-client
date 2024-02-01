@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function SignupPage() {
     const [name, setName] = useState('');
@@ -12,6 +14,7 @@ function SignupPage() {
         uppercase: false,
         specialChar: false
     });
+    const navigate= useNavigate();
 
     const checkPasswordCriteria = (password) => {
         const criteria = {
@@ -36,22 +39,26 @@ function SignupPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(!name || !email || !password) {
-            alert('please fill in the fields');
+            toast.error('please fill in the fields');
             return;
         }
         try {
             const response = await axios.post('http://localhost:5005/signup', {name, email, password});
             if(response.status===201) {
-                alert('Signup successful')
+                toast.success('Signup successful')
+                navigate('/login');
+                
             } else {
-                alert(`Signup failed: ${response.data.errorMessage || 'Error'}`);
+                const errorMessage = response.data.errorMessage || 'Error occurred during signup';
+                toast.error(`Signup failed: ${errorMessage}`);
             }
         } catch (error) {
             console.error('Signup error:', error)
             if(error.response) {
-                alert(`Signup failed: ${error.response.data.errorMessage || 'Error'}`);
+                const errorMessage = error.response.data.errorMessage || 'Error occurred during signup';
+                toast.error(`Signup failed: ${errorMessage}`);
             } else {
-                alert('An error occured during signup');
+                toast.error('An error occured during signup. Please check your network and try again.');
             }
         }
     };
