@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 
 const ReviewDisplay = ({ volumeId, triggerRefresh }) => {
     const [reviews, setReviews] = useState([]);
-    const [noReviewsMessage, setNoReviewsMessage] = useState('');
     const [editingReview, setEditingReview] = useState(null);
     const [showForm, setShowForm] = useState(true);  // Initially show the form
     const { currentUser } = useContext(UserContext);
@@ -72,7 +71,7 @@ const ReviewDisplay = ({ volumeId, triggerRefresh }) => {
             <h2 className="text-xl font-bold mb-4">Reviews</h2>
         
             {reviews.length === 0 ? (
-                <p className='text-gray-600 italic'>{noReviewsMessage || 'No reviews yet.'}</p>
+                <p className='text-gray-600 italic'>No reviews yet</p>
             ) : (
                 reviews.map((review, index) => (
                     <div key={index} className='bg-white p-4 rounded-lg shadow-md mb-4 max-w-xl'>
@@ -82,8 +81,8 @@ const ReviewDisplay = ({ volumeId, triggerRefresh }) => {
 
                         {currentUser && review.user._id === currentUser.id && (
                             <div className="flex justify-center mt-2">
-                                <button onClick={() => startEditing(review)} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded mr-2'>Edit Review</button>
-                                <button onClick={() => deleteReview(review._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">Delete Review</button>
+                                <button onClick={() => startEditing(review)} className='bg-custom-crimson hover:bg-custom-beige text-white font-bold py-1 px-3 rounded-full mr-2'>Edit Review</button>
+                                <button onClick={() => deleteReview(review._id)} className="bg-custom-crimson hover:bg-custom-beige text-white font-bold py-1 px-3 rounded-full">Delete Review</button>
                             </div>
                         )}
                     </div>

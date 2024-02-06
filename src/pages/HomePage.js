@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import BookCard from '../components/BookCard';
+import Spinner from '../components/Spinner';
 
 const keywords = ['fiction', 'history', 'science', 'adventure', 'mystery', 'fantasy', 'biography'];
 
@@ -66,11 +67,11 @@ function HomePage() {
                             placeholder="Search books..."
                             className="mr-2 p-2 border rounded-full"  
                 />
-                        <button type="submit" className="bg-custom-crimson 500 hover:bg-custom-dusty 700 text-white font-bold py-2 px-4 rounded-full">Search</button>
+                        <button type="submit" className="bg-custom-button hover:bg-custom-hover text-white font-bold py-2 px-4 rounded-full">Search</button>
                      </form>
                 </div>
             </div>
-            {isLoading ? <p>Loading...</p> : (
+            {isLoading ? <Spinner /> : (
                 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {books.map(book => (

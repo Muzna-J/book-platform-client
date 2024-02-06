@@ -2,12 +2,12 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ReadingListContext } from '../context/ReadingListContext';
 import axios from 'axios';
-import ReviewForm from '../components/ReviewForm';
 import ReviewDisplay from '../components/ReviewDisplay';
 import { UserContext } from '../context/UserContext';
 import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
 import { toast } from 'react-toastify';
+import Spinner from '../components/Spinner';
 
 
 
@@ -71,7 +71,7 @@ function BookDetailsPage() {
     };
         
     if(!bookDetails) {
-        return <div className='flex justify-center items-center min-h-screen'>Loading....</div>
+        return <Spinner />
     }
 
     const { volumeInfo } = bookDetails;
@@ -116,7 +116,6 @@ function BookDetailsPage() {
             <button onClick={handleAddToReadingList} className="bg-custom-crimson hover:bg-custom-beige text-white font-bold py-2 px-4 rounded-full">Add to Reading List</button>
             </div>
         </div>
-        {/* <ReviewForm volumeId={bookDetails.id}  triggerRefresh={triggerRefresh} className="mt-6" /> */}
         <ReviewDisplay volumeId={bookDetails.id} key={refreshKey} triggerRefresh={triggerRefresh} className="mt-6" />
         </div>
     );  

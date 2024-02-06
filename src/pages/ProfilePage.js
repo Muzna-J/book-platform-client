@@ -3,13 +3,14 @@ import { UserContext } from '../context/UserContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ReadingListContext } from '../context/ReadingListContext';
+import { toast } from 'react-toastify';
 
 const Profile = () => {
     const { currentUser, setCurrentUser, refreshCurrentUser } = useContext(UserContext);
     const [formName, setFormName] = useState('');
     const [formPassword, setFormPassword] = useState('');
-    const [toastMessage, setToastMessage] = useState('');
-    const [error, setError] = useState('');
+    //const [toastMessage, setToastMessage] = useState('');
+    //const [error, setError] = useState('');
     const navigate= useNavigate();
     const { clearReadingList } = useContext(ReadingListContext);
 
@@ -27,7 +28,7 @@ const Profile = () => {
 
     const handleProfileUpdate = async () => {
         if (formPassword && !validatePassword(formPassword)) {
-            setError('Password must have a minimum of 8 characters, including at least one number, one lowercase letter, one uppercase letter, and one special character');
+            toast.error('Password must have a minimum of 8 characters, including at least one number, one lowercase letter, one uppercase letter, and one special character');
             return;
         }
 
@@ -44,11 +45,10 @@ const Profile = () => {
             }
             // only username was updated
             setCurrentUser({ ...currentUser, name: formName });
-            setToastMessage('Profile updated successfully');
-            setError('');
+            toast.success(response.data.message);
             
         } catch (error) {
-            setError('Error updating profile');
+            toast.error('Error updating profile');
         }
     };
 
@@ -93,7 +93,7 @@ const Profile = () => {
                             onChange={handlePasswordChange} 
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                         />
-                        {error && <p className="text-red-500 text-xs italic">{error}</p>}
+                        
                     </div>
                     <div className="flex justify-center">
                         <button 
@@ -104,11 +104,6 @@ const Profile = () => {
                     </div>
                 </form>
 
-                {toastMessage && (
-                    <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mt-4" role="alert">
-                        <p>{toastMessage}</p>
-                    </div>
-                )}
             </div>
         </div>
     );

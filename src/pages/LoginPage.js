@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -24,7 +24,7 @@ function LoginPage() {
         .then(response => {
             refreshCurrentUser();
             console.log(response.data);
-            navigate('/home') ;
+            navigate('/') ;
         })
         .catch(error => {
             if(error.response) {

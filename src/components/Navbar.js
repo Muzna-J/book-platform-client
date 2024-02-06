@@ -27,9 +27,9 @@ function Navbar() {
     );
 
     return (
-        <div className="bg-custom-crimson text-custom-white font-mono p-2">
+        <div className="bg-custom-nav text-custom-white font-mono p-2">
             <div className="container mx-auto flex justify-between items-center">
-                <Link to='/home' className="flex items-center">
+                <Link to='/' className="flex items-center">
                 <img src="/bookLogo.png" alt="Logo" style={{ height: '50px' }} />
                 BookFinder
                 </Link>               

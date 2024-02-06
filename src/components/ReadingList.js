@@ -1,6 +1,5 @@
 import {  useContext, useEffect, useState } from 'react';
 import { ReadingListContext } from '../context/ReadingListContext';
-import { Link } from 'react-router-dom';
 import BookCard from './BookCard';
 import { toast } from 'react-toastify';
 import Spinner from './Spinner';
@@ -20,7 +19,7 @@ const ReadingList = () =>  {
         } else {
             setIsLoading(false);
         }
-    }, []);
+    }, [fetchReadingList, readingList.length]);
 
     if (isLoading) {
         return <Spinner />; 
