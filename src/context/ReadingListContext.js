@@ -7,12 +7,9 @@ const ReadingListProvider = ({children}) => {
     const [readingList, setReadingList] = useState([]);
 
     const fetchReadingList = async() => {
-        console.log("Fetching reading list from server...");
 
         try {
-            const response = await axios.get('http://localhost:5005/reading-list', { withCredentials: true });
-            console.log('fetched reading list:', response.data)
-             
+            const response = await axios.get('http://localhost:5005/reading-list', { withCredentials: true }); 
             setReadingList(response.data);
         } catch (error) {
             console.error("Error fetching reading list:", error);
@@ -30,13 +27,10 @@ const ReadingListProvider = ({children}) => {
 
     // Function to clear the reading list (locally)
     const clearReadingList = () => {
-        console.log("Clearing reading list...");
-
         setReadingList([]);
     };
 
     const removeFromReadingList = async (book) => {
-        console.log("Attempting to remove book:", book);
         try {
             const { volumeId } = book;
             await axios.post('http://localhost:5005/delete-book', { volumeId }, { withCredentials:true });
@@ -48,7 +42,6 @@ const ReadingListProvider = ({children}) => {
 
     // Fetch the reading list on component mount
     useEffect(() => {
-        console.log("useEffect triggered: Fetching reading list...");
         fetchReadingList();
     }, []);
 

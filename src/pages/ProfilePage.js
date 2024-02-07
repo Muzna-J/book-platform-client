@@ -9,13 +9,10 @@ const Profile = () => {
     const { currentUser, setCurrentUser, refreshCurrentUser } = useContext(UserContext);
     const [formName, setFormName] = useState('');
     const [formPassword, setFormPassword] = useState('');
-    //const [toastMessage, setToastMessage] = useState('');
-    //const [error, setError] = useState('');
     const navigate= useNavigate();
     const { clearReadingList } = useContext(ReadingListContext);
 
     useEffect(() => {
-        console.log("Current User Data test:", currentUser);
         if (currentUser) {
             setFormName(currentUser.name || '');
         }
@@ -38,9 +35,9 @@ const Profile = () => {
                 password: formPassword,
             }, { withCredentials: true });
             if (formPassword) {
-                clearReadingList(); // Assuming you have a function to clear reading list
+                clearReadingList(); 
                 refreshCurrentUser(); // Update user context
-                navigate('/login'); // Navigate to login page
+                navigate('/login'); 
                 return; //prevent further execution
             }
             // only username was updated

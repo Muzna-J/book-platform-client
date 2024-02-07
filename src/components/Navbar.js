@@ -6,7 +6,6 @@ function Navbar() {
     
     const { currentUser } = useContext(UserContext);
     const { pathname } = useLocation();
-    console.log('the user is', currentUser);
 
     const loggedInLinks = (
         <>

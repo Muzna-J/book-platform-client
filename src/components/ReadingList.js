@@ -11,7 +11,6 @@ const ReadingList = () =>  {
 
     useEffect(() => {
         if (readingList.length === 0) {
-            console.log("Reading list is empty, fetching data...");
             setIsLoading(true);
             fetchReadingList().then(()=> {
                 setIsLoading(false)
@@ -24,13 +23,7 @@ const ReadingList = () =>  {
     if (isLoading) {
         return <Spinner />; 
     }
-
-    // useEffect(() => {
-    //     console.log('Reading List Updated:', readingList);
-    //   }, [readingList]);
-    
-    console.log('Current state of readingList:', readingList);
-      
+     
 
     if (!Array.isArray(readingList) || readingList.length === 0) {
         return (
@@ -75,7 +68,6 @@ const ReadingList = () =>  {
                     <div key={book._id} className="flex flex-col items-center">
                     
                     <BookCard book={{ 
-                            //title: book.title, 
                             coverImage: book.thumbnail, 
                             volumeId: book.volumeId 
                         }} />

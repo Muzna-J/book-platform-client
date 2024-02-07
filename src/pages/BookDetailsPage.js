@@ -42,7 +42,6 @@ function BookDetailsPage() {
 
     const handleAddToReadingList = async () => {
         if (!currentUser) {
-            // Redirect to signup/login page
             navigate('/signup');
             return;
         }
@@ -60,9 +59,6 @@ function BookDetailsPage() {
                 });
                 addToReadingList(response.data.book);
                 toast.success('Book added to reading list!');
-                
-    
-                console.log(response.data.message);
 
             } catch (error) {
                 console.error('Error:', error.response);
@@ -77,10 +73,7 @@ function BookDetailsPage() {
     const { volumeInfo } = bookDetails;
     const { title, authors, publisher, publishedDate, description, industryIdentifiers, pageCount, imageLinks, language } = volumeInfo;
     const cleanDescription = DOMPurify.sanitize(description);
-    console.log('Description value:', description);
-    console.log(typeof description);
-
-
+    
     return (
         <div className="book-details p-6 bg-custom-beige font-mono">
         <div className="max-w-2xl mx-auto bg-custom-dusty shadow-lg rounded-lg overflow-hidden">

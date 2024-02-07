@@ -21,9 +21,8 @@ function LoginPage() {
         }
 
         axios.post ('http://localhost:5005/login', {email, password}, { withCredentials: true })
-        .then(response => {
+        .then(() => {
             refreshCurrentUser();
-            console.log(response.data);
             navigate('/') ;
         })
         .catch(error => {

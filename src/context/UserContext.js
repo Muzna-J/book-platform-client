@@ -4,19 +4,18 @@ import axios from 'axios';
 // Create the context
 export const UserContext = createContext();
 
-// This component will wrap around parts of your app that need access to UserContext
+// This component will wrap around parts of the app that need access to UserContext
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
 
 
   
-    // Fetch the user from your backend
+    // Fetch the user from the backend
     const fetchUser = async () => {
       try {
         const response = await axios.get('http://localhost:5005/current-user', {
           withCredentials: true
         });
-        console.log("Fetched user data:", response.data.currentUser);
         if (response.data.currentUser) {
           setCurrentUser(response.data.currentUser);
         } else {
