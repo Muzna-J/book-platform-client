@@ -113,7 +113,7 @@ function BookDetailsPage() {
             </div>
             </div>
             <div className='flex justify-center mb-4'>
-            <button onClick={handleAddToReadingList} className="bg-custom-crimson hover:bg-custom-beige text-white font-bold py-2 px-4 rounded-full">Add to Reading List</button>
+            <button onClick={handleAddToReadingList} className="bg-custom-crimson hover:bg-custom-orange text-white font-bold py-2 px-4 rounded-full">Add to Reading List</button>
             </div>
         </div>
         <ReviewDisplay volumeId={bookDetails.id} key={refreshKey} triggerRefresh={triggerRefresh} className="mt-6" />

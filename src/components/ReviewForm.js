@@ -58,11 +58,11 @@ const ReviewForm = ({ volumeId, existingReview, triggerRefresh, hideForm, onSubm
                 <StarRating rating={rating} setRating={setRating} className="mb-4" />
                 <textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder={ 'Add your review here'} className="w-full p-2 border border-gray-300 rounded mb-4"></textarea>
                 <div className='flex justify-center'>
-                <button type='submit' className="bg-custom-crimson hover:bg-custom-beige text-white font-bold py-2 px-4 rounded-full">{isEditing ? 'Update Review' : 'Submit Review'}</button>
+                <button type='submit' className="bg-custom-crimson hover:bg-custom-orange text-white font-bold py-2 px-4 rounded-full">{isEditing ? 'Update Review' : 'Submit Review'}</button>
                 </div>
                 {isEditing && (
                     <div className='flex justify-center'>
-                    <button type='button' onClick={cancelEditing} className="bg-custom-crimson hover:bg-custom-beige text-white font-bold py-2 px-4 rounded-full mt-2">
+                    <button type='button' onClick={cancelEditing} className="bg-custom-crimson hover:bg-custom-orange text-white font-bold py-2 px-4 rounded-full mt-2">
                         Cancel
                     </button>
                     </div>

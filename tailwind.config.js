@@ -8,14 +8,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'custom-beige': '#EBEBEB',
+        'custom-beige': '#F1F2F6',
         'custom-white': '#F7F9F9',
         'custom-green': '#00A676',
-        'custom-dusty': '#C5D0D3',
-        'custom-crimson': '#CC7B8B',
-        'custom-hover': '#27187E',
-        'custom-nav': '#CC7B8B',
-        'custom-button': '#CC7B8B'
+        'custom-dusty': '#AEB8FE',
+        'custom-crimson': '#27187E',
+        'custom-orange': '#FF8600',
+        'custom-nav': '#758BFD',
+        'custom-button': '#27187E'
       },
       fontFamily: {
         'mono': ['Arial', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', '"Noto Sans"', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"', '"Noto Color Emoji"'],

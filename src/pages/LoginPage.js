@@ -56,7 +56,7 @@ function LoginPage() {
             />
             <div className='flex  justify-center items-center mt-5'>
 
-            <button type='submit' className='bg-custom-crimson hover:bg-custom-beige text-white font-mono font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline'>Login</button>
+            <button type='submit' className='bg-custom-crimson hover:bg-custom-orange text-white font-mono font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline'>Login</button>
             </div>
 
         </form>

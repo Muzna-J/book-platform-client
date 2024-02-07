@@ -81,8 +81,8 @@ const ReviewDisplay = ({ volumeId, triggerRefresh }) => {
 
                         {currentUser && review.user._id === currentUser.id && (
                             <div className="flex justify-center mt-2">
-                                <button onClick={() => startEditing(review)} className='bg-custom-crimson hover:bg-custom-beige text-white font-bold py-1 px-3 rounded-full mr-2'>Edit Review</button>
-                                <button onClick={() => deleteReview(review._id)} className="bg-custom-crimson hover:bg-custom-beige text-white font-bold py-1 px-3 rounded-full">Delete Review</button>
+                                <button onClick={() => startEditing(review)} className='bg-custom-crimson hover:bg-custom-orange text-white font-bold py-1 px-3 rounded-full mr-2'>Edit Review</button>
+                                <button onClick={() => deleteReview(review._id)} className="bg-custom-crimson hover:bg-custom-orange text-white font-bold py-1 px-3 rounded-full">Delete Review</button>
                             </div>
                         )}
                     </div>

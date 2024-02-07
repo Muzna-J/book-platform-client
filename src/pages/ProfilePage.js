@@ -98,7 +98,7 @@ const Profile = () => {
                     <div className="flex justify-center">
                         <button 
                             type="submit" 
-                            className="bg-custom-crimson hover:bg-custom-beige text-white font-bold py-2 px-4 rounded-full">
+                            className="bg-custom-crimson hover:bg-custom-orange text-white font-bold py-2 px-4 rounded-full">
                             Update Profile
                         </button>
                     </div>

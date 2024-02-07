@@ -11,17 +11,17 @@ function Navbar() {
     const loggedInLinks = (
         <>
             
-            <Link to='/reading-list' className="nav-link hover:bg-custom-beige px-3 py-2 rounded-md">Reading List</Link>
-            <Link to='profile' className='nav-link hover:bg-custom-beige px-3 py-2 rounded-md'>Profile</Link>
-            <Link to='/logout' className="nav-link hover:bg-custom-beige px-3 py-2 rounded-md">Logout</Link>
+            <Link to='/reading-list' className="nav-link hover:bg-custom-orange px-3 py-2 rounded-md">Reading List</Link>
+            <Link to='profile' className='nav-link hover:bg-custom-orange px-3 py-2 rounded-md'>Profile</Link>
+            <Link to='/logout' className="nav-link hover:bg-custom-orange px-3 py-2 rounded-md">Logout</Link>
 
         </>
     );
 
     const loggedOutLinks = (
         <>
-            {pathname !== '/signup' && <Link to='/signup' className="nav-link hover:bg-gray-700 px-3 py-2 rounded-md">Signup</Link>}
-            {pathname !== '/login' && <Link to='/login' className="nav-link hover:bg-gray-700 px-3 py-2 rounded-md">Login</Link>}
+            {pathname !== '/signup' && <Link to='/signup' className="nav-link hover:bg-custom-orange px-3 py-2 rounded-md">Signup</Link>}
+            {pathname !== '/login' && <Link to='/login' className="nav-link hover:bg-custom-orange px-3 py-2 rounded-md">Login</Link>}
             
         </>
     );

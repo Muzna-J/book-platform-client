@@ -67,7 +67,7 @@ function HomePage() {
                             placeholder="Search books..."
                             className="mr-2 p-2 border rounded-full"  
                 />
-                        <button type="submit" className="bg-custom-button hover:bg-custom-hover text-white font-bold py-2 px-4 rounded-full">Search</button>
+                        <button type="submit" className="bg-custom-button hover:bg-custom-orange text-white font-bold py-2 px-4 rounded-full">Search</button>
                      </form>
                 </div>
             </div>
