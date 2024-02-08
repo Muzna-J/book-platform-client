@@ -34,7 +34,7 @@ const ReadingListProvider = ({children}) => {
         try {
             const { volumeId } = book;
             await axios.post('http://localhost:5005/delete-book', { volumeId }, { withCredentials:true });
-            fetchReadingList(); // Refresh the reading list from the server
+            fetchReadingList(); 
         } catch (error) {
             console.error('Error removing book from reading list:', error);
         }

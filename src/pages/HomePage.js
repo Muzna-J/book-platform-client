@@ -10,16 +10,13 @@ function HomePage() {
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [initialLoad, setInitialLoad] = useState(true);
-    
-   // const randomKeyword = keywords[Math.floor(Math.random() * keywords.length)];
-    
+     
 
     useEffect(() => {
         const fetchBooks = async() => {
             setIsLoading(true);
              
             try {
-                //const query = initialLoad ? keywords[Math.floor(Math.random() * keywords.length)] : searchTerm;
                 const query = searchTerm.trim() ? searchTerm : keywords[Math.floor(Math.random() * keywords.length)];
                 const response = await fetch(`http://localhost:5005/books?q=${query}`);
                 if(!response.ok) {
@@ -34,8 +31,6 @@ function HomePage() {
                 setIsLoading(false);
             }
         };
-    //     fetchBooks();
-    // }, [searchTerm, initialLoad]);
     if (initialLoad || searchTerm.trim()) {
         fetchBooks();
     }

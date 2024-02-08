@@ -26,7 +26,6 @@ const ReviewForm = ({ volumeId, existingReview, triggerRefresh, hideForm, onSubm
     const handleSubmit= async (e) => {
         e.preventDefault();
         if (!currentUser) {
-            // Redirect to the signup page
             navigate('/signup');
             return;
         }

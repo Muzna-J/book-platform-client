@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
-// Create the context
+
 export const UserContext = createContext();
 
 // This component will wrap around parts of the app that need access to UserContext
@@ -31,7 +31,7 @@ export const UserProvider = ({ children }) => {
       }, []);
 
       const refreshCurrentUser = () => {
-        fetchUser(); // Reuse the fetchUser function to refresh the current user
+        fetchUser(); // refresh the current user
       };
 
 

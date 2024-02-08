@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { UserContext } from '../context/UserContext'; // Adjust this import based on your context setup
+import { UserContext } from '../context/UserContext'; 
 
 function Navbar() {
     

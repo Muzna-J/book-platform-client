@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+<!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -67,4 +67,37 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) -->
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+# Bookfinder
+
+Book Platform is a web application built with the MERN stack (MongoDB, Express.js, React, and Node.js) that integrates the Google Books API to allow users to search for books, view details, manage a reading list, and leave reviews. It provides an interactive platform for book enthusiasts to explore and engage with a vast collection of books. Tailwind CSS is used for styling to offer a responsive and intuitive user interface. User authentication is handled through sessions, ensuring a secure and personalized experience.
+
+## Features
+
+- **Book Search**: Utilize the Google Books API to search for books by title, author, or ISBN.
+- **Book Details**: View detailed information about the books, including descriptions, authors, and publication dates.
+- **Reading List**: Add books to a personal reading list for future reference or reading.
+- **Book Reviews**: Leave reviews for books, including star ratings and comments.
+- **Reading List Management**: Search within your reading list and remove books you've finished or are no longer interested in.
+- **User Profile**: Users can edit their username and update their password.
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+- Node.js
+- npm or yarn
+- MongoDB
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/book-platform.git
+```
