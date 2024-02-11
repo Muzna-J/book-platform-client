@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ReadingListContext } from '../context/ReadingListContext';
 import { toast } from 'react-toastify';
+import { ConfigContext } from '../context/ConfigContext';
 
 const Profile = () => {
     const { currentUser, setCurrentUser, refreshCurrentUser } = useContext(UserContext);
@@ -11,6 +12,7 @@ const Profile = () => {
     const [formPassword, setFormPassword] = useState('');
     const navigate= useNavigate();
     const { clearReadingList } = useContext(ReadingListContext);
+    const { baseUrl } = useContext(ConfigContext);
 
     useEffect(() => {
         if (currentUser) {
@@ -30,7 +32,7 @@ const Profile = () => {
         }
 
         try {
-           const response =  await axios.put('http://localhost:5005/update-profile', {
+           const response =  await axios.put(`${baseUrl}/update-profile`, {
                 name: formName,
                 password: formPassword,
             }, { withCredentials: true });

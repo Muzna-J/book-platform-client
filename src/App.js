@@ -14,11 +14,13 @@ import Logout from './components/Logout';
 import { UserProvider } from './context/UserContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ConfigProvider } from './context/ConfigContext';
 
 
 
 function App() {
   return (
+    <ConfigProvider>
     <UserProvider> 
     <ReadingListProvider>
     <Router>
@@ -35,7 +37,8 @@ function App() {
     </Routes>
     </Router>
     </ReadingListProvider>
-    </UserProvider> 
+    </UserProvider>
+    </ConfigProvider> 
     
   );
 }

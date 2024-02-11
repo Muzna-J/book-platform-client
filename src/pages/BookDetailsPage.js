@@ -8,6 +8,7 @@ import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
+import { ConfigContext } from '../context/ConfigContext';
 
 
 
@@ -18,6 +19,7 @@ function BookDetailsPage() {
     const [refreshKey, setRefreshKey] = useState(0);
     const { currentUser } = useContext(UserContext);
     const navigate = useNavigate();
+    const { baseUrl } = useContext(ConfigContext);
     
 
     const triggerRefresh = () => {
@@ -27,7 +29,7 @@ function BookDetailsPage() {
     useEffect(() => {
         const fetchBookDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:5005/book/${volumeId}`);
+                const response = await fetch(`${baseUrl}/book/${volumeId}`);
                 if(!response.ok) {
                     throw new Error('Book details not found');
                 }
@@ -38,7 +40,7 @@ function BookDetailsPage() {
             }
         };
         fetchBookDetails();
-    }, [volumeId]);
+    }, [volumeId, baseUrl]);
 
     const handleAddToReadingList = async () => {
         if (!currentUser) {
@@ -47,7 +49,7 @@ function BookDetailsPage() {
         }
         if (bookDetails) {
             try {
-                const response = await axios.post('http://localhost:5005/reading-list/add', {
+                const response = await axios.post(`${baseUrl}/reading-list/add`, {
                     volumeId: bookDetails.id,
                     title: bookDetails.volumeInfo.title,
                     thumbnail: bookDetails.volumeInfo.imageLinks?.thumbnail

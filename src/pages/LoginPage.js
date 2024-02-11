@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ConfigContext } from '../context/ConfigContext';
 
 
 function LoginPage() {
@@ -11,6 +12,7 @@ function LoginPage() {
     const[password, setPassword] = useState('');
     const navigate = useNavigate();
     const { refreshCurrentUser } = useContext(UserContext);
+    const { baseUrl } = useContext(ConfigContext);
     
 
     const handleSubmit = (e) => {
@@ -20,7 +22,7 @@ function LoginPage() {
             return;
         }
 
-        axios.post ('http://localhost:5005/login', {email, password}, { withCredentials: true })
+        axios.post (`${baseUrl}/login`, {email, password}, { withCredentials: true })
         .then(() => {
             refreshCurrentUser();
             navigate('/') ;

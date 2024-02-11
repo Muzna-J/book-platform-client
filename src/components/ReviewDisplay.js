@@ -4,12 +4,14 @@ import ReviewForm from './ReviewForm';
 import { UserContext } from '../context/UserContext';
 import StarRatingDisplay from './StarRatingDisplay';
 import { toast } from 'react-toastify';
+import { ConfigContext } from '../context/ConfigContext';
 
 const ReviewDisplay = ({ volumeId, triggerRefresh }) => {
     const [reviews, setReviews] = useState([]);
     const [editingReview, setEditingReview] = useState(null);
     const [showForm, setShowForm] = useState(true);  // Initially show the form
     const { currentUser } = useContext(UserContext);
+    const { baseUrl } = useContext(ConfigContext);
     
 
     const startEditing = (review) => {
@@ -24,7 +26,7 @@ const ReviewDisplay = ({ volumeId, triggerRefresh }) => {
 
     const deleteReview = async (reviewId) => {
         try {
-            await axios.delete(`http://localhost:5005/delete-review/${reviewId}`, { withCredentials: true });
+            await axios.delete(`${baseUrl}/delete-review/${reviewId}`, { withCredentials: true });
             setReviews(reviews.filter(review => review._id !== reviewId));
             toast.success('Review deleted!');
             triggerRefresh();
@@ -40,7 +42,7 @@ const ReviewDisplay = ({ volumeId, triggerRefresh }) => {
     useEffect(() => {
         const fetchReviews = async () => {
             try {
-                const response = await axios.get(`http://localhost:5005/get-reviews/${volumeId}`, { withCredentials: true });
+                const response = await axios.get(`${baseUrl}/get-reviews/${volumeId}`, { withCredentials: true });
                 if (!response.data.message) {
                     setReviews(response.data);
                     const userHasReviewed = response.data.some(review => review.user._id === currentUser?.id);
@@ -51,7 +53,7 @@ const ReviewDisplay = ({ volumeId, triggerRefresh }) => {
             }
         };
         fetchReviews();
-    }, [volumeId, triggerRefresh, currentUser?.id]);
+    }, [baseUrl, volumeId, triggerRefresh, currentUser?.id]);
 
     return (
         <div className='my-4'>

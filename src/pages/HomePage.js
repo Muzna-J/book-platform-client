@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import BookCard from '../components/BookCard';
 import Spinner from '../components/Spinner';
+import { ConfigContext } from '../context/ConfigContext';
 
 const keywords = ['fiction', 'history', 'science', 'adventure', 'mystery', 'fantasy', 'biography'];
 
@@ -10,6 +11,7 @@ function HomePage() {
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [initialLoad, setInitialLoad] = useState(true);
+    const { baseUrl } = useContext(ConfigContext);
      
 
     useEffect(() => {
@@ -18,7 +20,7 @@ function HomePage() {
              
             try {
                 const query = searchTerm.trim() ? searchTerm : keywords[Math.floor(Math.random() * keywords.length)];
-                const response = await fetch(`http://localhost:5005/books?q=${query}`);
+                const response = await fetch(`${baseUrl}/books?q=${query}`);
                 if(!response.ok) {
                     throw new Error('failed to fetch books')
                 }
@@ -34,7 +36,7 @@ function HomePage() {
     if (initialLoad || searchTerm.trim()) {
         fetchBooks();
     }
-}, [searchTerm, initialLoad]);
+}, [searchTerm, initialLoad, baseUrl]);
 
     const handleSearch = (e) => {
         e.preventDefault();

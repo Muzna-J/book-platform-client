@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import StarRating from './StarRating';
 import { toast } from 'react-toastify';
+import { ConfigContext } from '../context/ConfigContext';
 
 
 
@@ -11,6 +12,7 @@ const ReviewForm = ({ volumeId, existingReview, triggerRefresh, hideForm, onSubm
     const [comment, setComment] = useState('');
     const [isEditing, setIsEditing] = useState(false);
     const navigate = useNavigate();
+    const { baseUrl } = useContext(ConfigContext);
     
 
 
@@ -33,7 +35,7 @@ const ReviewForm = ({ volumeId, existingReview, triggerRefresh, hideForm, onSubm
             toast.error("Please provide both a rating and a comment.");
             return;
         }
-        const url = isEditing ? `http://localhost:5005/edit-review/${existingReview._id}` : 'http://localhost:5005/add-review';
+        const url = isEditing ? `${baseUrl}/edit-review/${existingReview._id}` : `${baseUrl}/add-review`;
         const method = isEditing ? axios.put : axios.post;
         try {
             await method(url, { rating, comment, volumeId }, { withCredentials: true });
