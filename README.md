@@ -30,26 +30,34 @@ Frontend:
 
 `git clone https://github.com/Muzna-J/book-platform-client.git`
 
-### Docker
+# Deployment using Docker:
 
-To deploy the Book Platform services using Docker, build and run the Docker containers for both the backend and frontend with the following commands:
+1. Deploying the server:
 
-Backend:
+Environment variables:
 
-# Build the backend Docker image
+PORT=5005
+PROTOCOL=http
+HOSTNAME=localhost
+ORIGIN=http://localhost:8080
+MONGODB_URI=mongodb+srv://{username}:pass@.....
+SESS_SECRET=your_session_secret_here
+GOOGLE_API_KEY=your_google_api_key_here
+TOKEN_SECRET=your_token_secret_here
+NODE_ENV=development
 
-docker build -t book-platform-server .
+When running your Docker container, use the --env-file option to specify the environment file (in this case server.env):
+`docker run -d -p 5005:5005 --env-file server.env muznaj/book-platform-server`
 
-# Run the backend container
+2. Deploying the client:
 
-docker run -dp 5005:5005 book-platform-server
+For deploying a React client application, environment variables such as
+REACT_APP_PROTOCOL=http
+REACT_APP_HOSTNAME=localhost
+REACT_APP_PORT=5005
 
-Frontend:
+are set at build time and are already included in the Dockerfile.
 
-# Build the frontend Docker image
+To run the docker container, use the following command:
 
-docker build -t book-platform-client .
-
-# Run the frontend container
-
-docker run -dp 80:80 book-platform-client
+`docker run -d -p 80:80 muznaj/book-platform-client`
